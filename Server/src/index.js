@@ -10,6 +10,7 @@ const orderdb = require('./routes/orders');
 const query = require('./routes/query');
 const staff = require('./routes/staff');
 const vendor = require('./routes/vendor');
+const cart = require('./routes/cart');
 
 
 //Settings
@@ -30,6 +31,7 @@ app.use('/orderdb',orderdb);
 app.use('/queries',query);
 app.use('/staff',staff);
 app.use('/vendor',vendor);
+app.use('/cart',cart);
 
 
 //Starting server
