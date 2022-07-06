@@ -27,7 +27,7 @@ app.use('/admin',admin);
 app.use('/customer',customer);
 app.use('/items',items);
 app.use('/orderdb',orderdb);
-app.use('/query',query);
+app.use('/queries',query);
 app.use('/staff',staff);
 app.use('/vendor',vendor);
 
