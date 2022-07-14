@@ -15,26 +15,28 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: SingleChildScrollView(
           child: SafeArea(
-        child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                SizedBox(
-                    height: 50,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+                height: 60,
+                width: MediaQuery.of(context).size.width,
+                child: Container(
+                  color: Colors.red,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
-                      children: [
-                        Container(
-                          color: Colors.red,
-                          child: Text("Hello world"),
-                        )
-                      ],
-                    )),
-                Row()
-              ],
-            )),
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [Text("LOGO")],
+                    ),
+                  ),
+                )),
+            Row()
+          ],
+        ),
       )),
     );
   }
