@@ -32,10 +32,10 @@ router3.get('/:customer/:custfname/:custlname', (req, res) => {
 
 router3.post('/:customer', (req, res) => {
     var id = req.body.custid;
-    var fname = req.body.custname;
+    var fname = req.body.custfname;
     var lname = req.body.custlname;
-    var email = req.body.custemail;
-    var phone = req.body.custphoneno;
+    var email = req.body.emailid;
+    var phone = req.body.contactno;
     var residence = req.body.residence;
     console.log(id);
     console.log(fname);
@@ -60,8 +60,8 @@ router3.post('/:customer', (req, res) => {
 router3.put('/:customer', (req, res) => {
     var fname = req.body.custfname;
     var lname = req.body.custlname;
-    var email = req.body.custemail;
-    var phone = req.body.custphoneno;
+    var email = req.body.emailid;
+    var phone = req.body.contactno;
     var residence = req.body.residence;
     //console.log(id);
     console.log(fname);
