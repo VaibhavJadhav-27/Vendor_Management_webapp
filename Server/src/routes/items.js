@@ -30,10 +30,28 @@ router6.get('/:items/:itemname', async(req, res) => {
     });
 });
 
-router6.get('/:items/itemname/:category', async(req, res) => {
+router6.get('/:items/itemname/:category/:residence', async(req, res) => {
     var category = req.params.category;
+    var residence= req.params.residence;
     console.log(category);
-    mysqlConnection.query('select * from items where category=? ;', [category], (error, rows, fields) => {
+    console.log(residence);
+    mysqlConnection.query('select * from items where category=? and residence=? ;', [category,residence], (error, rows, fields) => {
+        if (!error) {
+            res.json(rows);
+            console.log(rows);
+
+        } else {
+            console.log(error);
+        }
+    });
+});
+
+router6.get('/:items/itemname/distinct/:category/:residence', async(req, res) => {
+    var category = req.params.category;
+    //var residence= req.params.residence;
+    console.log(category);
+    //console.log(residence);
+    mysqlConnection.query('select * from items where category=? group by itemname ;', [category], (error, rows, fields) => {
         if (!error) {
             res.json(rows);
             console.log(rows);
