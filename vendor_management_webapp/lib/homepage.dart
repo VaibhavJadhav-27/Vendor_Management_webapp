@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_final_fields
 
 import 'package:flutter/material.dart';
 
@@ -10,6 +10,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late TextEditingController _searchtext = TextEditingController();
+  String searcht = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,8 +46,36 @@ class _HomePageState extends State<HomePage> {
                         Container(
                           child: Row(
                             children: [
+                              SizedBox(
+                                height: 50,
+                                width: 300,
+                                child: TextField(
+                                  controller: _searchtext,
+                                  decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
                               ElevatedButton(
-                                  onPressed: () {}, child: Text("Search"))
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                    primary: Color.fromRGBO(101, 30, 62, 1),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 10,
+                                        bottom: 10,
+                                        right: 20,
+                                        left: 20),
+                                    child: Text(
+                                      "Search",
+                                      style: TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                  ))
                             ],
                           ),
                         ),
@@ -161,7 +192,18 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 200,
               child: Container(color: Colors.greenAccent),
-            )
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Text("Keep Shopping for...",
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontFamily: "WorkSans")),
+            ),
           ],
         ),
       )),
