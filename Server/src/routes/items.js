@@ -46,7 +46,7 @@ router6.get('/:items/itemname/:category/:residence', async(req, res) => {
     });
 });
 
-router6.get('/:items/itemname/distinct/:category/:residence', async(req, res) => {
+router6.get('/:items/iid/itemname/distinct/:category', async(req, res) => {
     var category = req.params.category;
     //var residence= req.params.residence;
     console.log(category);

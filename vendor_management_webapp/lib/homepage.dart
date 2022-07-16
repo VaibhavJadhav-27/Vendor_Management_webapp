@@ -1,8 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_final_fields, unused_local_variable, non_constant_identifier_names, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_final_fields, unused_local_variable, non_constant_identifier_names, avoid_print, unused_element
+
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:vendor_management_webapp/detailspage.dart';
 import 'package:vendor_management_webapp/itemsclass.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   final String profile;
@@ -19,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     String user = widget.profile;
+    late List data;
     int lengthit = 7;
     bool fruits = false;
     bool vegetables = false;
@@ -32,7 +36,7 @@ class _HomePageState extends State<HomePage> {
     Future<List<Items>> recommend() async {
       List<Items> recommenditems = [];
       Items item =
-          Items(1, "Apple", 120, "fruits", "kg", 1, "images/timesofindia.png");
+          Items(1, "Apple", 120, "fruits", "kg", 1, "images/apples.jpg");
       recommenditems.add(item);
       item = Items(2, "Mangoes", 200, "fruits", "kg", 1, "images/mangoes.jpg");
       recommenditems.add(item);
@@ -55,6 +59,63 @@ class _HomePageState extends State<HomePage> {
 
       print(recommenditems);
       return recommenditems;
+    }
+
+    Future<List<Items>> displayitems() async {
+      var url = Uri.parse('http://localhost:4000/items/items');
+      if (fruits == true) {
+        url = Uri.parse(
+            'http://localhost:4000/items/items/iid/itemname/distinct/fruits');
+      }
+      if (vegetables == true) {
+        url = Uri.parse(
+            'http://localhost:4000/items/items/iid/itemname/distinct/vegetable');
+      }
+      if (dairy == true) {
+        url = Uri.parse(
+            'http://localhost:4000/items/items/iid/itemname/distinct/dairy');
+      }
+      if (cereals == true) {
+        url = Uri.parse(
+            'http://localhost:4000/items/items/iid/itemname/distinct/cereals');
+      }
+      if (Spices == true) {
+        url = Uri.parse(
+            'http://localhost:4000/items/items/iid/itemname/distinct/spices');
+      }
+      if (oils == true) {
+        url = Uri.parse(
+            'http://localhost:4000/items/items/iid/itemname/distinct/oils');
+      }
+      if (flower == true) {
+        url = Uri.parse(
+            'http://localhost:4000/items/items/iid/itemname/distinct/flower');
+      }
+      if (newspaper == true) {
+        url = Uri.parse(
+            'http://localhost:4000/items/items/iid/itemname/distinct/newspaper');
+      }
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response = await http.get(url, headers: requestHeaders);
+      var itemjson = json.decode(response.body);
+      List<Items> item = [];
+      for (var u in itemjson) {
+        Items menu = Items(u["itemid"], u["itemname"], u["price"],
+            u["category"], u["mquantity"], u["vendorid"], u["itemimage"]);
+        itemjson.add(menu);
+      }
+      lengthit = item.length;
+      print(lengthit);
+      return item;
+    }
+
+    @override
+    void initState() {
+      super.initState();
+      displayitems();
     }
 
     return Scaffold(
@@ -334,6 +395,17 @@ class _HomePageState extends State<HomePage> {
                       });
                 },
               ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            /*FutureBuilder(
+              future: displayitems(),
+              builder:
+                  (BuildContext context, AsyncSnapshot<dynamic> snapshot) {},
+            ),*/
+            SizedBox(
+              height: 50,
             )
           ],
         ),
