@@ -71,7 +71,12 @@ class _LoginPageState extends State<LoginPage> {
           var empjson = json.decode(response2.body.toString());
           var profile = empjson[0]["adminfname"];
           print(profile);
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(
+                        profile: profile,
+                      )));
         }
         if (status == "staff") {
           var url2 = Uri.parse('http://localhost:4000/staff/staff/$emailid');
