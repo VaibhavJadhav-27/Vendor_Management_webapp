@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vendor_management_webapp/homepage.dart';
+import 'package:vendor_management_webapp/registerpage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -242,7 +243,13 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                         )),
                                     ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: ((context) =>
+                                                      RegisterPage())));
+                                        },
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 30, vertical: 10),
