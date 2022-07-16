@@ -30,6 +30,18 @@ router3.get('/:customer/:custfname/:custlname', (req, res) => {
     });
 });
 
+router3.get('/:customer/:emailid', (req, res) => {
+    var emailid = req.params.emailid;
+    console.log(emailid);
+    mysqlConnection.query('select * from customer where emailid = ?;',[emailid], (error, rows, fields) => {
+        if (!error) {
+            res.json(rows);
+        } else {
+            console.log(error);
+        }
+    });
+});
+
 router3.post('/:customer', (req, res) => {
     var id = req.body.custid;
     var fname = req.body.custfname;

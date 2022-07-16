@@ -30,6 +30,18 @@ router4.get('/:staff/:stafffname/:stafflname', (req, res) => {
     });
 });
 
+router4.get('/:staff/:emailid', (req, res) => {
+    var emailid = req.params.emailid;
+    console.log(emailid);
+    mysqlConnection.query('select * from staff where emailid = ?;',[emailid], (error, rows, fields) => {
+        if (!error) {
+            res.json(rows);
+        } else {
+            console.log(error);
+        }
+    });
+});
+
 router4.post('/:staff', (req, res) => {
     var id = req.body.staffid;
     var fname = req.body.stafffname;

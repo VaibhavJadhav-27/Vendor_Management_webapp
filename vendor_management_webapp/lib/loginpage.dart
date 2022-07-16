@@ -1,7 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, unused_import
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, unused_import, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:vendor_management_webapp/homepage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -14,12 +16,66 @@ class _LoginPageState extends State<LoginPage> {
   late TextEditingController _email = TextEditingController();
   late TextEditingController _pass = TextEditingController();
 
-  String email = "";
-  String pass = "";
+  String emailid = "";
+  String password = "";
   String type = "";
+  String notify = "";
 
   @override
   Widget build(BuildContext context) {
+    void verify_password() async {
+      var url1 =
+          Uri.parse('http://localhost:4000/login/login/$emailid/$password');
+      var response1 = await http.get(url1);
+      var responsejson = json.decode(response1.body.toString());
+      print(response1.body);
+      if (responsejson == "NO entries") {
+        setState(() {
+          notify = "Wrong Inputs..!!!";
+          //createAlertDialog(context);
+        });
+      } else {
+        var status = responsejson[0]["logintype"];
+        print(status);
+        if (status == "admin") {
+          var url2 = Uri.parse('localhost:4000/admin/admin/$emailid');
+          var response2 = await http.get(url2);
+          var empjson = json.decode(response2.body.toString());
+          var profile = empjson[0]["adminfname"];
+          print(profile);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        }
+        if (status == "staff") {
+          var url2 = Uri.parse('localhost:4000/staff/staff/$emailid');
+          var response2 = await http.get(url2);
+          var empjson = json.decode(response2.body.toString());
+          var profile = empjson[0]["stafffname"];
+          print(profile);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        }
+        if (status == "vendor") {
+          var url2 = Uri.parse('localhost:4000/vendor/vendor/$emailid');
+          var response2 = await http.get(url2);
+          var empjson = json.decode(response2.body.toString());
+          var profile = empjson[0]["vendorfname"];
+          print(profile);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        }
+        if (status == "customer") {
+          var url2 = Uri.parse('localhost:4000/customer/customer/$emailid');
+          var response2 = await http.get(url2);
+          var empjson = json.decode(response2.body.toString());
+          var profile = empjson[0]["custfname"];
+          print(profile);
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage()));
+        }
+      }
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(

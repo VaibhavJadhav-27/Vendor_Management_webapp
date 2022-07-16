@@ -30,6 +30,18 @@ router2.get('/:admin/:adminfname/:adminlname', (req, res) => {
     });
 });
 
+router2.get('/:admin/:emailid', (req, res) => {
+    var emailid = req.params.emailid;
+    console.log(emailid);
+    mysqlConnection.query('select * from admin where emailid = ?;',[emailid], (error, rows, fields) => {
+        if (!error) {
+            res.json(rows);
+        } else {
+            console.log(error);
+        }
+    });
+});
+
 router2.post('/:admin', (req, res) => {
     var id = req.body.adminid;
     var fname = req.body.adminfname;

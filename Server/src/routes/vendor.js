@@ -30,6 +30,18 @@ router5.get('/:vendor/:vendorfname/:vendorlname', (req, res) => {
     });
 });
 
+router5.get('/:vendor/:emailid', (req, res) => {
+    var emailid = req.params.emailid;
+    console.log(emailid);
+    mysqlConnection.query('select * from vendor where emailid = ?;',[emailid], (error, rows, fields) => {
+        if (!error) {
+            res.json(rows);
+        } else {
+            console.log(error);
+        }
+    });
+});
+
 router5.post('/:vendor', (req, res) => {
     var id = req.body.vendorid;
     var fname = req.body.vendorfname;
