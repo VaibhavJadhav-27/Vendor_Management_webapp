@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_final_fields
 
 import 'package:flutter/material.dart';
+import 'package:vendor_management_webapp/itemsclass.dart';
 
 class HomePage extends StatefulWidget {
   final String profile;
@@ -16,6 +17,37 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    String user = widget.profile;
+    int lengthit = 7;
+
+    Future<List<Items>> recommend() async {
+      List<Items> recommenditems = [];
+      Items item =
+          Items(1, "Apple", 120, "fruits", "kg", 1, "images/timesofindia.png");
+      recommenditems.add(item);
+      item = Items(2, "Mangoes", 200, "fruits", "kg", 1, "images/mangoes.jpg");
+      recommenditems.add(item);
+      item =
+          Items(5, "Tomatoes", 50, "vegetable", "kg", 2, "images/tomatoes.jpg");
+      recommenditems.add(item);
+      item = Items(7, "Onions", 50, "vegetable", "kg", 2, "images/onions.jpg");
+      recommenditems.add(item);
+      item = Items(
+          8, "Beetroot", 70, "vegetable", "kg", 2, "images/beetroots.jpg");
+      item = Items(17, "Chilli Powder", 50, "spices", "kg", 5,
+          "images/everestchillipowder.jpeg");
+      recommenditems.add(item);
+      item = Items(18, "Kashmiri Lal Powder", 70, "spices", "kg", 5,
+          "images/everestkashmiripowder.jpeg");
+      recommenditems.add(item);
+      item =
+          Items(21, "Cinnamon", 50, "spices", "kg", 5, "images/cinnamon.jpg");
+      recommenditems.add(item);
+
+      print(recommenditems);
+      return recommenditems;
+    }
+
     return Scaffold(
       body: SingleChildScrollView(
           child: SafeArea(
@@ -79,6 +111,17 @@ class _HomePageState extends State<HomePage> {
                                   ))
                             ],
                           ),
+                        ),
+                        SizedBox(
+                          width: 120,
+                        ),
+                        Text(
+                          "Hello " + user,
+                          style: TextStyle(
+                              fontFamily: "WorkSans",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black),
                         ),
                         SizedBox(
                           width: 30,
@@ -205,6 +248,57 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.black,
                       fontFamily: "WorkSans")),
             ),
+            SizedBox(
+              height: 250,
+              child: FutureBuilder(
+                future: recommend(),
+                builder: (BuildContext context, AsyncSnapshot snapshot) {
+                  return GridView.builder(
+                      itemCount: lengthit,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (snapshot.data == null) {
+                          return Container(
+                            child: CircularProgressIndicator(),
+                          );
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                                onPressed: () {},
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Image.asset(
+                                        snapshot.data[index].itemimage,
+                                        fit: BoxFit.cover,
+                                        //scale: 0.9,
+                                        //height: 50,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 10),
+                                      child: Text(
+                                        snapshot.data[index].itemname,
+                                        style: TextStyle(
+                                            fontSize: 17, color: Colors.black),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          );
+                        }
+                      });
+                },
+              ),
+            )
           ],
         ),
       )),

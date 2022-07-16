@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, unused_import
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:vendor_management_webapp/homepage.dart';
 import 'package:vendor_management_webapp/loginpage.dart';
@@ -16,8 +17,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: LoginPage(),
+        body: HomePage(
+          profile: "Vaibhav",
+        ),
       ),
+      scrollBehavior: MaterialScrollBehavior()
+          .copyWith(dragDevices: {PointerDeviceKind.mouse}),
       debugShowCheckedModeBanner: false,
     );
   }
