@@ -16,9 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: HomePage(
-          profile: "vaibhav",
-        ),
+        body: LoginPage(),
       ),
       debugShowCheckedModeBanner: false,
     );
