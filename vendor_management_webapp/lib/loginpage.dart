@@ -23,6 +23,33 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    createAlertDialog(BuildContext context) {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.all(10),
+              backgroundColor: Color.fromRGBO(101, 30, 62, 1),
+              elevation: 20,
+              title: Text(
+                "Wrong inputs..!!",
+                style: TextStyle(fontSize: 25, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "Back",
+                      style: TextStyle(color: Colors.white, fontSize: 15),
+                    ))
+              ],
+            );
+          });
+    }
+
     void verify_password() async {
       var url1 =
           Uri.parse('http://localhost:4000/login/login/$emailid/$password');
@@ -32,46 +59,48 @@ class _LoginPageState extends State<LoginPage> {
       if (responsejson == "NO entries") {
         setState(() {
           notify = "Wrong Inputs..!!!";
-          //createAlertDialog(context);
+          createAlertDialog(context);
         });
       } else {
         var status = responsejson[0]["logintype"];
         print(status);
         if (status == "admin") {
-          var url2 = Uri.parse('localhost:4000/admin/admin/$emailid');
+          var url2 = Uri.parse('http://localhost:4000/admin/admin/$emailid');
           var response2 = await http.get(url2);
           var empjson = json.decode(response2.body.toString());
           var profile = empjson[0]["adminfname"];
           print(profile);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
         }
         if (status == "staff") {
-          var url2 = Uri.parse('localhost:4000/staff/staff/$emailid');
+          var url2 = Uri.parse('http://localhost:4000/staff/staff/$emailid');
           var response2 = await http.get(url2);
           var empjson = json.decode(response2.body.toString());
           var profile = empjson[0]["stafffname"];
           print(profile);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
         }
         if (status == "vendor") {
-          var url2 = Uri.parse('localhost:4000/vendor/vendor/$emailid');
+          var url2 = Uri.parse('http://localhost:4000/vendor/vendor/$emailid');
           var response2 = await http.get(url2);
           var empjson = json.decode(response2.body.toString());
           var profile = empjson[0]["vendorfname"];
           print(profile);
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
         }
         if (status == "customer") {
-          var url2 = Uri.parse('localhost:4000/customer/customer/$emailid');
+          var url2 =
+              Uri.parse('http://localhost:4000/customer/customer/$emailid');
           var response2 = await http.get(url2);
           var empjson = json.decode(response2.body.toString());
           var profile = empjson[0]["custfname"];
           print(profile);
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(
+                        profile: profile,
+                      )));
         }
       }
     }
@@ -142,6 +171,10 @@ class _LoginPageState extends State<LoginPage> {
                                   width: 400,
                                   child: TextField(
                                     controller: _email,
+                                    onChanged: (value) {
+                                      emailid = value;
+                                      print(emailid);
+                                    },
                                     decoration: InputDecoration(
                                       hintText: "Enter email id....",
                                       border: OutlineInputBorder(),
@@ -163,6 +196,10 @@ class _LoginPageState extends State<LoginPage> {
                                     controller: _pass,
                                     obscureText: true,
                                     obscuringCharacter: '*',
+                                    onChanged: (value) {
+                                      password = value;
+                                      print(password);
+                                    },
                                     decoration: InputDecoration(
                                       hintText: "Enter password....",
                                       border: OutlineInputBorder(),
@@ -184,7 +221,16 @@ class _LoginPageState extends State<LoginPage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     ElevatedButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          if (emailid == "" || password == "") {
+                                            print("Fill all the fields...!!");
+                                            setState(() {
+                                              notify = "Fill all the fields";
+                                            });
+                                          } else {
+                                            verify_password();
+                                          }
+                                        },
                                         child: Padding(
                                           padding: const EdgeInsets.symmetric(
                                               horizontal: 30, vertical: 10),

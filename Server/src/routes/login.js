@@ -20,7 +20,7 @@ router1.get('/:login',async(req,res) => {
 
 router1.get('/:login/:emailid/:password', async(req, res) => {
     var email = req.params.emailid;
-    var password = req.params.custpassword;
+    var password = req.params.password;
     console.log(email);
     console.log(password);
     mysqlConnection.query('select * from login where emailid = ? and password =? ;', [email, password], (error, rows, fields) => {
