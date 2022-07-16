@@ -1,15 +1,15 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, camel_case_types
 
 import 'package:flutter/material.dart';
 
-class cartpage extends StatefulWidget {
-  const cartpage({Key? key}) : super(key: key);
+class cartPage extends StatefulWidget {
+  const cartPage({Key? key}) : super(key: key);
 
   @override
-  State<cartpage> createState() => _cartpageState();
+  State<cartPage> createState() => _cartPageState();
 }
 
-class _cartpageState extends State<cartpage> {
+class _cartPageState extends State<cartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold();
