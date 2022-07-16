@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_final_fields, unused_import, unused_local_variable
+// ignore_for_file: prefer_const_constructors, prefer_final_fields, unused_import, unused_local_variable, non_constant_identifier_names, avoid_print
 
 import 'package:flutter/material.dart';
 import 'dart:convert';
