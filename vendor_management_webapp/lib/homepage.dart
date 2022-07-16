@@ -1,6 +1,7 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_final_fields
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, prefer_final_fields, unused_local_variable, non_constant_identifier_names, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:vendor_management_webapp/detailspage.dart';
 import 'package:vendor_management_webapp/itemsclass.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,6 +20,14 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     String user = widget.profile;
     int lengthit = 7;
+    bool fruits = false;
+    bool vegetables = false;
+    bool dairy = false;
+    bool cereals = false;
+    bool oils = false;
+    bool Spices = false;
+    bool newspaper = false;
+    bool flower = false;
 
     Future<List<Items>> recommend() async {
       List<Items> recommenditems = [];
@@ -267,7 +276,34 @@ class _HomePageState extends State<HomePage> {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: ElevatedButton(
-                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 10, primary: Colors.white),
+                                onPressed: () {
+                                  int iid = snapshot.data[index].itemid;
+                                  String iname = snapshot.data[index].itemname;
+                                  String iprice =
+                                      snapshot.data[index].price.toString();
+                                  String icategory =
+                                      snapshot.data[index].category;
+                                  String imqu = snapshot.data[index].mquantity;
+                                  int ivendorid = snapshot.data[index].vendorid;
+                                  String iimage =
+                                      snapshot.data[index].itemimage;
+
+                                  print(iname);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Detailspage(
+                                              profile: user,
+                                              itemname: iname,
+                                              itemid: iid,
+                                              price: iprice,
+                                              category: icategory,
+                                              mquantity: imqu,
+                                              vendorid: ivendorid,
+                                              itemimage: iimage)));
+                                },
                                 child: Column(
                                   crossAxisAlignment:
                                       CrossAxisAlignment.stretch,
@@ -284,7 +320,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 10),
+                                          vertical: 10, horizontal: 10),
                                       child: Text(
                                         snapshot.data[index].itemname,
                                         style: TextStyle(
