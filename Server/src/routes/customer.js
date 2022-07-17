@@ -16,14 +16,15 @@ router3.get('/:customer', (req, res) => {
     });
 });
 
-router3.get('/:customer/:custfname/:custlname', (req, res) => {
+router3.get('/customer/cust/:custfname', (req, res) => {
     var custfname = req.params.custfname;
-    var custlname = req.params.custlname;
+    //var custlname = req.params.custlname;
     console.log(custfname);
-    console.log(custlname);
-    mysqlConnection.query('select * from customer where custfname = ? and custlname = ?;',[custfname,custlname], (error, rows, fields) => {
+    //console.log(custlname);
+    mysqlConnection.query('select * from customer where custfname = ?;',[custfname], (error, rows, fields) => {
         if (!error) {
             res.json(rows);
+            console.log(rows);
         } else {
             console.log(error);
         }
