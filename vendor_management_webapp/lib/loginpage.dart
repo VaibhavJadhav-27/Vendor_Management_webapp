@@ -121,7 +121,11 @@ class _LoginPageState extends State<LoginPage> {
             child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          color: Colors.blueAccent,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/bg1.jpg'), fit: BoxFit.cover),
+          ),
+          //color: Colors.blueAccent,
           child: Center(
             child: Card(
               elevation: 10,
@@ -137,9 +141,9 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       SizedBox(
-                        width: 600,
+                        width: 635,
                         child: Container(
-                          color: Colors.pinkAccent,
+                          color: Color.fromARGB(255, 246, 217, 111),
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 45),
                             child: Column(
@@ -157,14 +161,19 @@ class _LoginPageState extends State<LoginPage> {
                                   style: TextStyle(
                                       fontFamily: "WorkSans",
                                       fontSize: 40,
-                                      color: Colors.black45,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold),
                                 )),
                                 SizedBox(
                                   height: 35,
                                 ),
-                                Text(
-                                    "Welcome back. Please login to your account"),
+                                Center(
+                                  child: Text(
+                                    "Welcome back. Please login to your account",
+                                    style: TextStyle(
+                                        fontFamily: "WorkSans", fontSize: 20),
+                                  ),
+                                ),
                                 SizedBox(
                                   height: 60,
                                 ),
@@ -187,6 +196,8 @@ class _LoginPageState extends State<LoginPage> {
                                     },
                                     decoration: InputDecoration(
                                       hintText: "Enter email id....",
+                                      fillColor: Colors.white60,
+                                      filled: true,
                                       border: OutlineInputBorder(),
                                     ),
                                   ),
@@ -211,6 +222,8 @@ class _LoginPageState extends State<LoginPage> {
                                       print(password);
                                     },
                                     decoration: InputDecoration(
+                                      fillColor: Colors.white60,
+                                      filled: true,
                                       hintText: "Enter password....",
                                       border: OutlineInputBorder(),
                                     ),
@@ -231,6 +244,10 @@ class _LoginPageState extends State<LoginPage> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary:
+                                              Color.fromRGBO(101, 30, 62, 1),
+                                        ),
                                         onPressed: () {
                                           if (emailid == "" || password == "") {
                                             print("Fill all the fields...!!");
@@ -252,6 +269,10 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                         )),
                                     ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary:
+                                              Color.fromRGBO(101, 30, 62, 1),
+                                        ),
                                         onPressed: () {
                                           Navigator.push(
                                               context,
@@ -278,7 +299,10 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       SizedBox(
                         child: Container(
-                          child: Image.asset('images/shopping.jpg'),
+                          child: Image.asset(
+                            'images/shopping.jpg',
+                            //scale: 0.3,
+                          ),
                         ),
                       )
                     ],

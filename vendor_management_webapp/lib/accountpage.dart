@@ -61,7 +61,11 @@ class _AccountPageState extends State<AccountPage> {
             child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          color: Colors.blueAccent,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/bg1.jpg'), fit: BoxFit.cover),
+          ),
+          //color: Colors.blueAccent,
           child: Center(
             child: Card(
               elevation: 10,

@@ -237,18 +237,21 @@ class _HomePageState extends State<HomePage> {
                 height: 60,
                 width: MediaQuery.of(context).size.width,
                 child: Container(
-                  color: Colors.red,
+                  color: Color.fromARGB(255, 246, 217, 111),
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 45),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("LOGO",
+                        Text("Shopper's Stop",
                             style: TextStyle(
-                                fontFamily: "WorkSans",
-                                fontSize: 30,
-                                fontWeight: FontWeight.bold)),
+                              fontFamily: "Pacifico",
+                              fontStyle: FontStyle.italic,
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromRGBO(101, 30, 62, 1),
+                            )),
                         /*SizedBox(
                           width: 150,
                         )*/
@@ -343,8 +346,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 )),
             SizedBox(
-              height: 200,
-              child: Container(color: Colors.greenAccent),
+              height: 280,
+              child: Container(
+                //color: Colors.greenAccent
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('images/bg.jpg'), fit: BoxFit.cover),
+                ),
+              ),
             ),
             SizedBox(
               height: 30,

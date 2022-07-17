@@ -148,7 +148,11 @@ class _RegisterPageState extends State<RegisterPage> {
             child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          color: Colors.greenAccent,
+          //color: Colors.greenAccent,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/bg1.jpg'), fit: BoxFit.cover),
+          ),
           child: Center(
             child: Card(
               elevation: 10,
@@ -160,7 +164,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 650,
                 width: 1100,
                 child: Container(
-                  color: Colors.amberAccent,
+                  color: Color.fromARGB(255, 246, 217, 111),
                   child: Column(
                     children: [
                       SizedBox(
@@ -172,7 +176,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           style: TextStyle(
                               fontFamily: "WorkSans",
                               fontSize: 40,
-                              color: Colors.black45,
+                              color: Colors.black,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -218,6 +222,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                             print(fname);
                                           },
                                           decoration: InputDecoration(
+                                            fillColor: Colors.white60,
+                                            filled: true,
                                             hintText:
                                                 "Enter your first name...",
                                             border: OutlineInputBorder(),
@@ -248,6 +254,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                             print(contactno);
                                           },
                                           decoration: InputDecoration(
+                                            fillColor: Colors.white60,
+                                            filled: true,
                                             hintText:
                                                 "Enter your contact no....",
                                             border: OutlineInputBorder(),
@@ -278,6 +286,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                             print(residence);
                                           },
                                           decoration: InputDecoration(
+                                            fillColor: Colors.white60,
+                                            filled: true,
                                             hintText:
                                                 "Enter your residence....",
                                             border: OutlineInputBorder(),
@@ -324,6 +334,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                             print(lname);
                                           },
                                           decoration: InputDecoration(
+                                            fillColor: Colors.white60,
+                                            filled: true,
                                             hintText:
                                                 "Enter your last name....",
                                             border: OutlineInputBorder(),
@@ -354,6 +366,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                             print(emailid);
                                           },
                                           decoration: InputDecoration(
+                                            fillColor: Colors.white60,
+                                            filled: true,
                                             hintText: "Enter your email id....",
                                             border: OutlineInputBorder(),
                                           ),
@@ -385,6 +399,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                           obscureText: true,
                                           obscuringCharacter: '*',
                                           decoration: InputDecoration(
+                                            fillColor: Colors.white60,
+                                            filled: true,
                                             hintText: "Enter your password....",
                                             border: OutlineInputBorder(),
                                           ),
@@ -410,6 +426,9 @@ class _RegisterPageState extends State<RegisterPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Color.fromRGBO(101, 30, 62, 1),
+                              ),
                               onPressed: () {
                                 if (fname == "" ||
                                     lname == "" ||
@@ -436,6 +455,9 @@ class _RegisterPageState extends State<RegisterPage> {
                                 ),
                               )),
                           ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                primary: Color.fromRGBO(101, 30, 62, 1),
+                              ),
                               onPressed: () {
                                 if (fname == "" ||
                                     lname == "" ||
