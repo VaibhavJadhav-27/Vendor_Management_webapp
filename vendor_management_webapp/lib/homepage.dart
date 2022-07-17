@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:vendor_management_webapp/accountpage.dart';
+import 'package:vendor_management_webapp/cartpage.dart';
 import 'package:vendor_management_webapp/detailspage.dart';
 import 'package:vendor_management_webapp/itemsclass.dart';
 import 'package:http/http.dart' as http;
@@ -322,7 +323,13 @@ class _HomePageState extends State<HomePage> {
                           width: 30,
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) =>
+                                          cartPage(profile: user))));
+                            },
                             child: Text(
                               "Cart",
                               style: TextStyle(
