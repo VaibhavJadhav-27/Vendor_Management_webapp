@@ -276,7 +276,11 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      SizedBox()
+                      SizedBox(
+                        child: Container(
+                          child: Image.asset('images/shopping.jpg'),
+                        ),
+                      )
                     ],
                   ),
                 ),
