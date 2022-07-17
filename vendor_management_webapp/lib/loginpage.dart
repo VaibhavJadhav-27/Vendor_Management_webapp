@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:vendor_management_webapp/homepage.dart';
 import 'package:vendor_management_webapp/registerpage.dart';
+import 'package:vendor_management_webapp/vendorpage.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -92,7 +93,10 @@ class _LoginPageState extends State<LoginPage> {
           var empjson = json.decode(response2.body.toString());
           var profile = empjson[0]["vendorfname"];
           print(profile);
-          //Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => VendorPage(profile: profile)));
         }
         if (status == "customer") {
           var url2 =
