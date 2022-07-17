@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, non_constant_identifier_names, avoid_print, unused_element, avoid_unnecessary_containers, unused_local_variable
+// ignore_for_file: prefer_const_constructors, camel_case_types, prefer_const_constructors_in_immutables, prefer_const_literals_to_create_immutables, non_constant_identifier_names, avoid_print, unused_element, avoid_unnecessary_containers, unused_local_variable, prefer_typing_uninitialized_variables
 
 import 'package:flutter/material.dart';
 import 'package:vendor_management_webapp/cartclass.dart';
@@ -66,7 +66,8 @@ class _cartPageState extends State<cartPage> {
   }
 
   void placeorder() async {
-    var url1 = Uri.parse('http://localhost:4000/customer/customer/$profile');
+    var url1 =
+        Uri.parse('http://localhost:4000/customer/customer/cust/$profile');
     Map<String, String> requestHeaders1 = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -77,10 +78,20 @@ class _cartPageState extends State<cartPage> {
     int custid = custjson[0]["custid"];
     print("cust id : " + custid.toString());
 
-    var url2 = Uri.parse('http://192.168.0.103:4000/cart/cart/$custid');
+    var url2 = Uri.parse('http://localhost:4000/cart/cart/7');
     var response2 = await http.get(url2);
     var cartjson = json.decode(response2.body);
+    print("cart json : ");
     print(cartjson);
+
+    List vendorid = [];
+    for (var u in cartjson) {
+      int a = u["vendorid"];
+      print("v id : " + a.toString());
+      vendorid.add(a);
+    }
+    int vid = vendorid[0];
+    //print("vendorid list : " + vendorid.toString());
     var items = "";
     var listitems = "";
     for (var u in cartjson) {
@@ -91,6 +102,107 @@ class _cartPageState extends State<cartPage> {
       listitems = listitems + items;
     }
     print(listitems);
+    var url3 = Uri.parse('http://localhost:4000/orderdb/orderdb');
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+    var now1 = DateTime.now();
+    var ordertime =
+        "${now1.year}-${now1.month}-${now1.day} ${now1.hour}:${now1.minute}:${now1.second}";
+    var ordertime1 = ordertime;
+    print(ordertime);
+    print(ordertime1);
+    var body = jsonEncode({
+      'custid': 7,
+      'vendorid': vid,
+      'details': listitems,
+      'totalprice': total,
+      'ordertype': 'pickup',
+      'otime': ordertime,
+      'isReceived': 'no'
+    });
+    var response3 = await http.post(url3, headers: requestHeaders, body: body);
+
+    if (response3.statusCode == 200) {
+      print("Response status = ${response3.statusCode}");
+      print("Response body : " + response3.body.toString());
+      createAlertDialog1(context);
+    }
+    /*
+    for (var i in vendorid) {
+      var items = "";
+      var listitems = "";
+      int total1 = 0;
+      for (var u in cartjson) {
+        if (i == u["vendorid"]) {
+          items = " Item Name : " +
+              u["itemname"] +
+              "  Quantity: " +
+              u["mquantity"].toString();
+          listitems = listitems + items;
+          int pri = u["price"];
+          int qua = u["quantity"];
+          total1 = total1 + (pri * qua);
+        }
+      }
+      print(listitems);
+      var url3 = Uri.parse('http://192.168.0.103:4000/ordersdb/ordersdb');
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var now1 = DateTime.now();
+      var ordertime =
+          "${now1.year}-${now1.month}-${now1.day} ${now1.hour}:${now1.minute}:${now1.second}";
+      var ordertime1 = ordertime;
+      print(ordertime);
+      print(ordertime1);
+      var body = jsonEncode({
+        'custid': custid,
+        'vendorid': i,
+        'details': listitems,
+        'totalprice': total1,
+        'ordertype': 'pickup',
+        'otime': ordertime,
+        'isReceived': 'no'
+      });
+      var response3 =
+          await http.post(url3, headers: requestHeaders, body: body);
+
+      if (response3.statusCode == 200) {
+        print("Response status = ${response3.statusCode}");
+        print("Response body : " + response3.body.toString());
+      }
+    }*/
+    //createAlertDialog1(context);
+  }
+
+  createAlertDialog1(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.all(10),
+            backgroundColor: Color.fromRGBO(21, 102, 59, 1),
+            elevation: 20,
+            title: Text(
+              "Order Placed...!!",
+              style: TextStyle(fontSize: 25, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Back",
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ))
+            ],
+          );
+        });
   }
 
   @override
@@ -208,10 +320,8 @@ class _cartPageState extends State<cartPage> {
                                           SizedBox(
                                             height: 100,
                                             width: 100,
-                                            child: Expanded(
-                                              child: Image.asset(snapshot
-                                                  .data[index].itemimage),
-                                            ),
+                                            child: Image.asset(
+                                                snapshot.data[index].itemimage),
                                           ),
                                           Padding(
                                             padding: const EdgeInsets.only(
@@ -279,6 +389,7 @@ class _cartPageState extends State<cartPage> {
                   ElevatedButton(
                       onPressed: () {
                         print("total :" + total.toString());
+                        placeorder();
                       },
                       style: ElevatedButton.styleFrom(
                         primary: Color.fromRGBO(101, 30, 62, 1),
