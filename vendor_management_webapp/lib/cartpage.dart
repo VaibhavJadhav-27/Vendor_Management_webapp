@@ -266,7 +266,7 @@ class _cartPageState extends State<cartPage> {
             child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          color: Colors.greenAccent,
+          color: Color.fromARGB(255, 246, 217, 111),
           child: Center(
             child: SizedBox(
               height: 700,
@@ -396,7 +396,7 @@ class _cartPageState extends State<cartPage> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.only(
-                            top: 10, bottom: 10, right: 20, left: 20),
+                            top: 10, bottom: 10, right: 30, left: 30),
                         child: Text(
                           "Place Order",
                           style: TextStyle(color: Colors.white, fontSize: 20),
