@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: VendorPage(profile: "Vaibhavr"),
+        body: VendorPage(profile: "Vaibhav"),
       ),
       scrollBehavior: MaterialScrollBehavior()
           .copyWith(dragDevices: {PointerDeviceKind.mouse}),
