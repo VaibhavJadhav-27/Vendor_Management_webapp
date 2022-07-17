@@ -65,6 +65,34 @@ class _cartPageState extends State<cartPage> {
     return cartitems;
   }
 
+  void placeorder() async {
+    var url1 = Uri.parse('http://localhost:4000/customer/customer/$profile');
+    Map<String, String> requestHeaders1 = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+    var response1 = await http.get(url1, headers: requestHeaders1);
+    var custjson = json.decode(response1.body);
+    print(custjson);
+    int custid = custjson[0]["custid"];
+    print("cust id : " + custid.toString());
+
+    var url2 = Uri.parse('http://192.168.0.103:4000/cart/cart/$custid');
+    var response2 = await http.get(url2);
+    var cartjson = json.decode(response2.body);
+    print(cartjson);
+    var items = "";
+    var listitems = "";
+    for (var u in cartjson) {
+      items = " Item Name : " +
+          u["itemname"] +
+          "  Quantity: " +
+          u["mquantity"].toString();
+      listitems = listitems + items;
+    }
+    print(listitems);
+  }
+
   @override
   Widget build(BuildContext context) {
     String profile1 = "Akash";
@@ -127,86 +155,99 @@ class _cartPageState extends State<cartPage> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           color: Colors.greenAccent,
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                child: Text(
-                  "Added Items",
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              SizedBox(
-                height: 500,
-                child: FutureBuilder(
-                    future: display,
-                    builder: (BuildContext context, AsyncSnapshot snapshot) {
-                      return ListView.builder(
-                          itemCount: lengthct,
-                          itemBuilder: (BuildContext context, int index) {
-                            if (snapshot.data == null) {
-                              return Container(
-                                child: Text(
-                                  "No items in Cart..!!",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.center,
-                                ),
-                              );
-                            } else {
-                              return Container(
-                                  child: Padding(
-                                padding: EdgeInsets.all(10),
-                                child: Card(
-                                  elevation: 5,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      SizedBox(
-                                        height: 80,
-                                        width: 80,
-                                        child: Expanded(
-                                          child: Image.asset(
-                                              snapshot.data[index].itemimage),
-                                        ),
-                                      ),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.min,
+          child: Center(
+            child: SizedBox(
+              height: 700,
+              width: 500,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Text(
+                      "Added Items",
+                      style: TextStyle(
+                          fontSize: 35,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: "WorkSans"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 500,
+                    child: FutureBuilder(
+                        future: display,
+                        builder:
+                            (BuildContext context, AsyncSnapshot snapshot) {
+                          return ListView.builder(
+                              itemCount: lengthct,
+                              itemBuilder: (BuildContext context, int index) {
+                                if (snapshot.data == null) {
+                                  return Container(
+                                    child: Text(
+                                      "No items in Cart..!!",
+                                      style: TextStyle(
+                                          fontSize: 35,
+                                          fontWeight: FontWeight.bold,
+                                          fontFamily: "WorkSans"),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  );
+                                } else {
+                                  return Container(
+                                      child: Padding(
+                                    padding: EdgeInsets.all(10),
+                                    child: Card(
+                                      elevation: 5,
+                                      child: Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        mainAxisSize: MainAxisSize.min,
                                         children: [
+                                          SizedBox(
+                                            height: 100,
+                                            width: 100,
+                                            child: Expanded(
+                                              child: Image.asset(snapshot
+                                                  .data[index].itemimage),
+                                            ),
+                                          ),
                                           Padding(
                                             padding: const EdgeInsets.only(
-                                                bottom: 5),
+                                                top: 10, bottom: 5),
                                             child: Text(
-                                              snapshot.data[index].itemname,
+                                              "Item Name : " +
+                                                  snapshot.data[index].itemname,
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 20),
                                             ),
                                           ),
-                                          Text(
-                                            snapshot.data[index].mquantity
-                                                    .toString() +
-                                                "x",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 15),
-                                          ),
-                                          Text(
-                                            "Rs. " +
-                                                snapshot.data[index].price
-                                                    .toString(),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.normal,
-                                                fontSize: 15),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                snapshot.data[index].mquantity
+                                                        .toString() +
+                                                    "x",
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 18),
+                                              ),
+                                              Text(
+                                                "Rs. " +
+                                                    snapshot.data[index].price
+                                                        .toString(),
+                                                style: TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    fontSize: 18),
+                                              ),
+                                            ],
                                           ),
                                           IconButton(
                                               onPressed: () async {
@@ -218,19 +259,41 @@ class _cartPageState extends State<cartPage> {
                                               },
                                               icon: Icon(
                                                 Icons.delete_rounded,
-                                                size: 25,
+                                                size: 35,
                                               ))
                                         ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ));
-                            }
-                          });
-                    }),
-              )
-            ],
+                                    ),
+                                  ));
+                                }
+                              });
+                        }),
+                  ),
+                  Divider(thickness: 2, color: Colors.black),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        print("total :" + total.toString());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Color.fromRGBO(101, 30, 62, 1),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                            top: 10, bottom: 10, right: 20, left: 20),
+                        child: Text(
+                          "Place Order",
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ))
+                ],
+              ),
+            ),
           ),
         )),
       ),

@@ -68,7 +68,7 @@ router7.post('/:orderdb', (req, res) => {
     var ordertype = req.body.ordertype;
     var otime = req.body.otime;
     var isreceived = req.body.isReceived;
-    console.log(orderid);
+    //console.log(orderid);
     console.log(custid);
     console.log(vendorid);
     console.log(details);
@@ -76,7 +76,7 @@ router7.post('/:orderdb', (req, res) => {
     console.log(ordertype);
     console.log(otime);
     console.log(isreceived);
-    mysqlConnection.query('insert into ordersdb values(?,?,?,?,?,?,?,?);', [orderid, custid, vendorid, details, totalprice, ordertype, otime, isreceived], (error, rows, fields) => {
+    mysqlConnection.query('insert into ordersdb values(?,?,?,?,?,?,?,?);', [orderid,custid, vendorid, details, totalprice, ordertype, otime, isreceived], (error, rows, fields) => {
         if (!error) {
             //res.json({ Status: 'Customer registered ..!!' });
             res.send('Order record inserted successfully...!!!')
