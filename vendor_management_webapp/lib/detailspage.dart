@@ -1,6 +1,8 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unused_local_variable, prefer_const_literals_to_create_immutables, prefer_final_fields
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unused_local_variable, prefer_const_literals_to_create_immutables, prefer_final_fields, avoid_print, unused_element
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class Detailspage extends StatefulWidget {
   final String profile;
@@ -29,6 +31,37 @@ class Detailspage extends StatefulWidget {
 
 class _DetailspageState extends State<Detailspage> {
   TextEditingController _qt = TextEditingController();
+  late int totalprice;
+  String quantity = "1";
+
+  createAlertDialog(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.all(10),
+            backgroundColor: Color.fromRGBO(21, 102, 59, 1),
+            elevation: 20,
+            title: Text(
+              "Added to cart",
+              style: TextStyle(
+                  fontFamily: "Comfortaa", fontSize: 25, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            content: Image.asset("assets/images/Vector.png"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Back",
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ))
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +73,119 @@ class _DetailspageState extends State<Detailspage> {
     String mquantity = widget.mquantity;
     int vendorid = widget.vendorid;
     String itemimmage = widget.itemimage;
-    late int totalprice;
-    String quantity = "1";
+
+    void updatequantity() {
+      setState(() {
+        if (int.parse(quantity) < 1) {
+          quantity = "1";
+        } else {
+          quantity;
+        }
+        print("value of quantity in updatequantity inset state : " + quantity);
+        totalprice = int.parse(price) * int.parse(quantity);
+        print(totalprice.toString());
+      });
+      print("value of quantity outside set state : " + quantity);
+      print("total out of set state :" + totalprice.toString());
+    }
+
+    @override
+    void initState() {
+      super.initState();
+    }
+
+    @override
+    void dispose() {
+      this.dispose();
+    }
+
+    void updatecartitems() async {
+      var url1 =
+          Uri.parse('http://localhost:4000/customer/customer/cust/$profile');
+      Map<String, String> requestHeaders1 = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response = await http.get(url1, headers: requestHeaders1);
+      var custjson = json.decode(response.body);
+      print(custjson);
+      int custid = custjson[0]["custid"];
+      print(custid);
+
+      // checking if the item is present in the cart of that particular customer
+      var url2 = Uri.parse('http://localhost:4000/cart/cart/$custid/$itemid');
+      Map<String, String> requestHeaders2 = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response2 = await http.get(url2, headers: requestHeaders2);
+      var itemjson = json.decode(response2.body);
+      print(itemjson);
+      try {
+        //if data is present, update the quantity
+        int iid = itemjson[0]["itemid"];
+        int iprice = itemjson[0]["price"];
+        int res = iprice * int.parse(quantity);
+        print("data available");
+        var url = Uri.parse('http://192.168.0.103:4000/cart/cart');
+        Map<String, String> requestHeaders = {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        };
+        print(totalprice);
+        print(quantity);
+        var body = jsonEncode({
+          'custid': custid,
+          'itemid': itemid,
+          'price': int.parse(price),
+          'mquantity': int.parse(quantity),
+          'totalprice': res,
+        });
+        var response1 =
+            await http.put(url, headers: requestHeaders, body: body);
+        if (response1.statusCode == 200) {
+          print("Response Status : ${response1.statusCode}");
+          print("Response body : " + response1.body.toString());
+        }
+      } on RangeError {
+        //if data is not present, insert all the details
+        var url4 = Uri.parse('http://localhost:4000/items/items/$itemname');
+        Map<String, String> requestHeaders2 = {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        };
+        var response2 = await http.get(url4, headers: requestHeaders2);
+        var item1json = json.decode(response2.body);
+        print(item1json);
+        int iprice = item1json[0]["price"];
+        int res = iprice * int.parse(quantity);
+        print("Not available");
+        var url = Uri.parse('http://localhost:4000/cart/cart');
+        Map<String, String> requestHeaders = {
+          'Content-type': 'application/json',
+          'Accept': 'application/json',
+        };
+        var body = jsonEncode({
+          'custid': custid,
+          'itemid': itemid,
+          'vendorid': vendorid,
+          'itemname': itemname,
+          'itemimage': itemimmage,
+          'price': int.parse(price),
+          'mquantity': int.parse(quantity),
+          'totalprice': res
+        });
+        var response1 =
+            await http.post(url, headers: requestHeaders, body: body);
+        if (response1.statusCode == 200) {
+          print("Response Status : ${response1.statusCode}");
+          print("Response body : " + response1.body.toString());
+        }
+      } catch (e) {
+        print("Not available");
+      }
+    }
+
     return Scaffold(
         body: SingleChildScrollView(
       child: SafeArea(
@@ -133,6 +277,14 @@ class _DetailspageState extends State<Detailspage> {
                             child: TextField(
                               controller: _qt,
                               keyboardType: TextInputType.number,
+                              onChanged: (value) {
+                                setState(() {
+                                  quantity = value;
+                                  print("Value of quantity when pressed : " +
+                                      quantity);
+                                  updatequantity();
+                                });
+                              },
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                               ),
@@ -145,7 +297,10 @@ class _DetailspageState extends State<Detailspage> {
                       height: 40,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          updatecartitems();
+                          createAlertDialog(context);
+                        },
                         style: ElevatedButton.styleFrom(
                           primary: Color.fromRGBO(101, 30, 62, 1),
                         ),
