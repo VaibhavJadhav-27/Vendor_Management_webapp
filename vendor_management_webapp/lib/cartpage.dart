@@ -78,7 +78,7 @@ class _cartPageState extends State<cartPage> {
     int custid = custjson[0]["custid"];
     print("cust id : " + custid.toString());
 
-    var url2 = Uri.parse('http://localhost:4000/cart/cart/7');
+    var url2 = Uri.parse('http://localhost:4000/cart/cart/$custid');
     var response2 = await http.get(url2);
     var cartjson = json.decode(response2.body);
     print("cart json : ");
@@ -114,7 +114,7 @@ class _cartPageState extends State<cartPage> {
     print(ordertime);
     print(ordertime1);
     var body = jsonEncode({
-      'custid': 7,
+      'custid': custid,
       'vendorid': vid,
       'details': listitems,
       'totalprice': total,
