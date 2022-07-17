@@ -261,37 +261,35 @@ class _DetailspageState extends State<Detailspage> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 70, bottom: 20),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text("Quantity : ",
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 70, bottom: 20),
+                          child: Text("Quantity : ",
                               style:
                                   TextStyle(color: Colors.black, fontSize: 20)),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          SizedBox(
-                            width: 200,
-                            child: TextField(
-                              controller: _qt,
-                              keyboardType: TextInputType.number,
-                              onChanged: (value) {
-                                setState(() {
-                                  quantity = value;
-                                  print("Value of quantity when pressed : " +
-                                      quantity);
-                                  updatequantity();
-                                });
-                              },
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                              ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
+                        /*SizedBox(
+                          height: 70,
+                          width: 400,
+                          child: TextField(
+                            controller: _qt,
+                            onChanged: (value) {
+                              quantity = value;
+                              print(quantity);
+                              updatequantity();
+                            },
+                            decoration: InputDecoration(
+                              hintText: "Enter email id....",
+                              border: OutlineInputBorder(),
                             ),
-                          )
-                        ],
-                      ),
+                          ),
+                        ),*/
+                      ],
                     ),
                     SizedBox(
                       height: 40,
@@ -299,7 +297,7 @@ class _DetailspageState extends State<Detailspage> {
                     ElevatedButton(
                         onPressed: () {
                           updatecartitems();
-                          createAlertDialog(context);
+                          //createAlertDialog(context);
                         },
                         style: ElevatedButton.styleFrom(
                           primary: Color.fromRGBO(101, 30, 62, 1),

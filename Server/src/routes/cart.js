@@ -7,6 +7,17 @@ router9.get('/', async(req, res) => {
     res.status(200).json('Server is on and database is connected..!!!');
 });
 
+router9.get('/:cart', async(req, res) => {
+    mysqlConnection.query('select * from cart ;', (error, rows, fields) => {
+        if (!error) {
+            res.json(rows);
+            console.log(rows);
+
+        } else {
+            console.log(error);
+        }
+    });
+});
 
 router9.get('/:cart/:custid', async(req, res) => {
     var custid = req.params.custid;
