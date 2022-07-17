@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:vendor_management_webapp/accountpage.dart';
 import 'package:vendor_management_webapp/detailspage.dart';
 import 'package:vendor_management_webapp/itemsclass.dart';
 import 'package:http/http.dart' as http;
@@ -24,15 +25,13 @@ class _HomePageState extends State<HomePage> {
     String user = widget.profile;
     late List data;
     int lengthit = 7;
-    bool fruits = false;
-    bool vegetables = false;
-    bool dairy = false;
-    bool cereals = false;
-    bool oils = false;
-    bool Spices = false;
-    bool newspaper = false;
-    bool flower = false;
-    bool detect = false;
+    int lengthselected = 0;
+    int lengthvegetable = 0;
+    int lengthcereal = 0;
+    int lengthoils = 0;
+    int lengthspices = 0;
+    int dairyprolength = 0;
+    int lengthnews = 0;
 
     Future<List<Items>> recommend() async {
       List<Items> recommenditems = [];
@@ -62,41 +61,9 @@ class _HomePageState extends State<HomePage> {
       return recommenditems;
     }
 
-    Future<List<Items>> displayitems() async {
+    Future<List<Items>> displayfruitsitems() async {
       var url = Uri.parse(
           'http://localhost:4000/items/items/iid/itemname/distinct/fruits');
-      if (fruits == true) {
-        url = Uri.parse(
-            'http://localhost:4000/items/items/iid/itemname/distinct/fruits');
-      }
-      if (vegetables == true) {
-        url = Uri.parse(
-            'http://localhost:4000/items/items/iid/itemname/distinct/vegetable');
-      }
-      if (dairy == true) {
-        url = Uri.parse(
-            'http://localhost:4000/items/items/iid/itemname/distinct/dairy');
-      }
-      if (cereals == true) {
-        url = Uri.parse(
-            'http://localhost:4000/items/items/iid/itemname/distinct/cereals');
-      }
-      if (Spices == true) {
-        url = Uri.parse(
-            'http://localhost:4000/items/items/iid/itemname/distinct/spices');
-      }
-      if (oils == true) {
-        url = Uri.parse(
-            'http://localhost:4000/items/items/iid/itemname/distinct/oils');
-      }
-      if (flower == true) {
-        url = Uri.parse(
-            'http://localhost:4000/items/items/iid/itemname/distinct/flower');
-      }
-      if (newspaper == true) {
-        url = Uri.parse(
-            'http://localhost:4000/items/items/iid/itemname/distinct/newspaper');
-      }
       Map<String, String> requestHeaders = {
         'Content-type': 'application/json',
         'Accept': 'application/json',
@@ -106,20 +73,155 @@ class _HomePageState extends State<HomePage> {
       print(itemjson);
       List<Items> item = [];
       for (var u in itemjson) {
-        Items menu = Items(u["itemid"], u["itemname"], u["price"],
-            u["category"], u["mquantity"], u["vendorid"], u["itemimage"]);
-        item.add(menu);
+        Items i = Items(u["itemid"], u["itemname"], u["price"], u["category"],
+            u["mquantity"], u["vendorid"], u["itemimage"]);
+        item.add(i);
       }
-      lengthit = item.length;
-      print(item.toString());
-      print(lengthit);
+      lengthselected = item.length;
+      print("Hello " + item[1].itemname);
+      print(lengthselected);
+      return item;
+    }
+
+    Future<List<Items>> displayvegeitems() async {
+      var url = Uri.parse(
+          'http://localhost:4000/items/items/iid/itemname/distinct/vegetable');
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response = await http.get(url, headers: requestHeaders);
+      var itemjson = json.decode(response.body);
+      print(itemjson);
+      List<Items> item = [];
+      for (var u in itemjson) {
+        Items i = Items(u["itemid"], u["itemname"], u["price"], u["category"],
+            u["mquantity"], u["vendorid"], u["itemimage"]);
+        item.add(i);
+      }
+      lengthvegetable = item.length;
+      print("Hello " + item[1].itemname);
+      print(lengthvegetable);
+      return item;
+    }
+
+    Future<List<Items>> displaydairyitems() async {
+      var url = Uri.parse(
+          'http://localhost:4000/items/items/iid/itemname/distinct/dairy');
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response = await http.get(url, headers: requestHeaders);
+      var itemjson = json.decode(response.body);
+      print(itemjson);
+      List<Items> item = [];
+      for (var u in itemjson) {
+        Items i = Items(u["itemid"], u["itemname"], u["price"], u["category"],
+            u["mquantity"], u["vendorid"], u["itemimage"]);
+        item.add(i);
+      }
+      dairyprolength = item.length;
+      print("Hello " + item[1].itemname);
+      print(dairyprolength);
+      return item;
+    }
+
+    Future<List<Items>> displayspicesitems() async {
+      var url = Uri.parse(
+          'http://localhost:4000/items/items/iid/itemname/distinct/spices');
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response = await http.get(url, headers: requestHeaders);
+      var itemjson = json.decode(response.body);
+      print(itemjson);
+      List<Items> item = [];
+      for (var u in itemjson) {
+        Items i = Items(u["itemid"], u["itemname"], u["price"], u["category"],
+            u["mquantity"], u["vendorid"], u["itemimage"]);
+        item.add(i);
+      }
+      lengthspices = item.length;
+      print("Hello " + item[1].itemname);
+      print(lengthspices);
+      return item;
+    }
+
+    Future<List<Items>> displaycerealitems() async {
+      var url = Uri.parse(
+          'http://localhost:4000/items/items/iid/itemname/distinct/cereals');
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response = await http.get(url, headers: requestHeaders);
+      var itemjson = json.decode(response.body);
+      print(itemjson);
+      List<Items> item = [];
+      for (var u in itemjson) {
+        Items i = Items(u["itemid"], u["itemname"], u["price"], u["category"],
+            u["mquantity"], u["vendorid"], u["itemimage"]);
+        item.add(i);
+      }
+      lengthcereal = item.length;
+      print("Hello " + item[1].itemname);
+      print(lengthcereal);
+      return item;
+    }
+
+    Future<List<Items>> displayoilitems() async {
+      var url = Uri.parse(
+          'http://localhost:4000/items/items/iid/itemname/distinct/oils');
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response = await http.get(url, headers: requestHeaders);
+      var itemjson = json.decode(response.body);
+      print(itemjson);
+      List<Items> item = [];
+      for (var u in itemjson) {
+        Items i = Items(u["itemid"], u["itemname"], u["price"], u["category"],
+            u["mquantity"], u["vendorid"], u["itemimage"]);
+        item.add(i);
+      }
+      lengthoils = item.length;
+      print("Hello " + item[1].itemname);
+      print(lengthoils);
+      return item;
+    }
+
+    Future<List<Items>> displaynewsitems() async {
+      var url = Uri.parse(
+          'http://localhost:4000/items/items/iid/itemname/distinct/newspaper');
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var response = await http.get(url, headers: requestHeaders);
+      var itemjson = json.decode(response.body);
+      print(itemjson);
+      List<Items> item = [];
+      for (var u in itemjson) {
+        Items i = Items(u["itemid"], u["itemname"], u["price"], u["category"],
+            u["mquantity"], u["vendorid"], u["itemimage"]);
+        item.add(i);
+      }
+      lengthnews = item.length;
+      print("Hello " + item[1].itemname);
+      print(lengthnews);
       return item;
     }
 
     @override
     void initState() {
       super.initState();
-      displayitems();
+      displayfruitsitems();
+      displayvegeitems();
+      displaycerealitems();
+      displayspicesitems();
     }
 
     return Scaffold(
@@ -201,7 +303,13 @@ class _HomePageState extends State<HomePage> {
                           width: 30,
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: ((context) =>
+                                          AccountPage(profile: user))));
+                            },
                             child: Text(
                               "Account",
                               style: TextStyle(
@@ -227,227 +335,6 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                 )),
-            SizedBox(
-              height: 45,
-              width: MediaQuery.of(context).size.width,
-              child: Container(
-                color: Colors.yellow,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 35),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      TextButton(
-                          onPressed: () {
-                            setState(() {
-                              fruits = !fruits;
-                              detect = true;
-                              vegetables = false;
-                              Spices = false;
-                              dairy = false;
-                              cereals = false;
-                              oils = false;
-                              flower = false;
-                              newspaper = false;
-                            });
-                            displayitems();
-                          },
-                          child: Text(
-                            "Fruits",
-                            style: TextStyle(
-                                fontSize: 17,
-                                color: (fruits == true)
-                                    ? Colors.black
-                                    : Colors.white),
-                          )),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                            primary: (vegetables == true)
-                                ? Color.fromRGBO(21, 102, 59, 1)
-                                : Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              vegetables = !vegetables;
-                              fruits = false;
-                              Spices = false;
-                              dairy = false;
-                              cereals = false;
-                              oils = false;
-                              flower = false;
-                              newspaper = false;
-                              detect = true;
-                            });
-                            displayitems();
-                          },
-                          child: Text(
-                            "Vegetables",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          )),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                            primary: (dairy == true)
-                                ? Color.fromRGBO(21, 102, 59, 1)
-                                : Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              dairy = !dairy;
-                              vegetables = false;
-                              Spices = false;
-                              fruits = false;
-                              cereals = false;
-                              oils = false;
-                              flower = false;
-                              detect = true;
-                              newspaper = false;
-                            });
-                            displayitems();
-                          },
-                          child: Text(
-                            "Dairy Products",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          )),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                            primary: (cereals == true)
-                                ? Color.fromRGBO(21, 102, 59, 1)
-                                : Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              cereals = !cereals;
-                              vegetables = false;
-                              Spices = false;
-                              detect = true;
-                              dairy = false;
-                              fruits = false;
-                              oils = false;
-                              flower = false;
-                              newspaper = false;
-                            });
-                            displayitems();
-                          },
-                          child: Text(
-                            "Cereals",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          )),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                            primary: (Spices == true)
-                                ? Color.fromRGBO(21, 102, 59, 1)
-                                : Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              Spices = !Spices;
-                              vegetables = false;
-                              fruits = false;
-                              dairy = false;
-                              detect = true;
-                              cereals = false;
-                              oils = false;
-                              flower = false;
-                              newspaper = false;
-                            });
-                            displayitems();
-                          },
-                          child: Text(
-                            "Spices",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          )),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                            primary: (oils == true)
-                                ? Color.fromRGBO(21, 102, 59, 1)
-                                : Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              oils = !oils;
-                              vegetables = false;
-                              Spices = false;
-                              dairy = false;
-                              cereals = false;
-                              fruits = false;
-                              detect = true;
-                              flower = false;
-                              newspaper = false;
-                            });
-                            displayitems();
-                          },
-                          child: Text(
-                            "Oils",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          )),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                            primary: (flower == true)
-                                ? Color.fromRGBO(21, 102, 59, 1)
-                                : Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              flower = !flower;
-                              vegetables = false;
-                              Spices = false;
-                              detect = true;
-                              dairy = false;
-                              cereals = false;
-                              oils = false;
-                              fruits = false;
-                              newspaper = false;
-                            });
-                            displayitems();
-                          },
-                          child: Text(
-                            "Flowers",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          )),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                            primary: (newspaper == true)
-                                ? Color.fromRGBO(21, 102, 59, 1)
-                                : Colors.white,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              newspaper = !newspaper;
-                              vegetables = false;
-                              Spices = false;
-                              dairy = false;
-                              cereals = false;
-                              oils = false;
-                              flower = false;
-                              detect = true;
-                              fruits = false;
-                            });
-                            displayitems();
-                          },
-                          child: Text(
-                            "Newspapers",
-                            style: TextStyle(
-                              fontSize: 17,
-                            ),
-                          ))
-                    ],
-                  ),
-                ),
-              ),
-            ),
             SizedBox(
               height: 200,
               child: Container(color: Colors.greenAccent),
@@ -543,28 +430,322 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 40,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              child: Text("Fruits Section...",
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontFamily: "WorkSans")),
             ),
             SizedBox(
               height: 250,
               child: FutureBuilder(
-                future: displayitems(),
+                //initialData: [],
+                future: displayfruitsitems(),
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   return GridView.builder(
-                      //itemCount: lengthit,
+                      itemCount: lengthselected,
                       scrollDirection: Axis.horizontal,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 1),
                       itemBuilder: (BuildContext context, int index) {
-                        if (detect == false) {
-                          if (snapshot.data == null) {
-                            return Container(
-                              child: CircularProgressIndicator(),
-                            );
-                          } else {
-                            return Text("");
-                          }
+                        if (snapshot.data == null) {
+                          return Container(
+                              child: /*Center(
+                                  child: Text(
+                            "No Category selected..!!!",
+                            style: TextStyle(color: Colors.black),
+                          ))*/
+                                  CircularProgressIndicator());
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 10, primary: Colors.white),
+                                onPressed: () {
+                                  int iid = snapshot.data[index].itemid;
+                                  String iname = snapshot.data[index].itemname;
+                                  String iprice =
+                                      snapshot.data[index].price.toString();
+                                  String icategory =
+                                      snapshot.data[index].category;
+                                  String imqu = snapshot.data[index].mquantity;
+                                  int ivendorid = snapshot.data[index].vendorid;
+                                  String iimage =
+                                      snapshot.data[index].itemimage;
+
+                                  print(iname);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Detailspage(
+                                              profile: user,
+                                              itemname: iname,
+                                              itemid: iid,
+                                              price: iprice,
+                                              category: icategory,
+                                              mquantity: imqu,
+                                              vendorid: ivendorid,
+                                              itemimage: iimage)));
+                                },
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Image.asset(
+                                        snapshot.data[index].itemimage,
+                                        fit: BoxFit.cover,
+                                        //scale: 0.9,
+                                        //height: 50,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 10),
+                                      child: Text(
+                                        snapshot.data[index].itemname,
+                                        style: TextStyle(
+                                            fontSize: 17, color: Colors.black),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          );
+                        }
+                      });
+                },
+              ),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              child: Text("Vegetables Section...",
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontFamily: "WorkSans")),
+            ),
+            SizedBox(
+              height: 250,
+              child: FutureBuilder(
+                //initialData: [],
+                future: displayvegeitems(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  return GridView.builder(
+                      itemCount: lengthvegetable,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (snapshot.data == null) {
+                          return Container(
+                              child: /*Center(
+                                  child: Text(
+                            "No Category selected..!!!",
+                            style: TextStyle(color: Colors.black),
+                          ))*/
+                                  CircularProgressIndicator());
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 10, primary: Colors.white),
+                                onPressed: () {
+                                  int iid = snapshot.data[index].itemid;
+                                  String iname = snapshot.data[index].itemname;
+                                  String iprice =
+                                      snapshot.data[index].price.toString();
+                                  String icategory =
+                                      snapshot.data[index].category;
+                                  String imqu = snapshot.data[index].mquantity;
+                                  int ivendorid = snapshot.data[index].vendorid;
+                                  String iimage =
+                                      snapshot.data[index].itemimage;
+
+                                  print(iname);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Detailspage(
+                                              profile: user,
+                                              itemname: iname,
+                                              itemid: iid,
+                                              price: iprice,
+                                              category: icategory,
+                                              mquantity: imqu,
+                                              vendorid: ivendorid,
+                                              itemimage: iimage)));
+                                },
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Image.asset(
+                                        snapshot.data[index].itemimage,
+                                        fit: BoxFit.cover,
+                                        //scale: 0.9,
+                                        //height: 50,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 10),
+                                      child: Text(
+                                        snapshot.data[index].itemname,
+                                        style: TextStyle(
+                                            fontSize: 17, color: Colors.black),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          );
+                        }
+                      });
+                },
+              ),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+              child: Text("Cereals Section...",
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontFamily: "WorkSans")),
+            ),
+            SizedBox(
+              height: 250,
+              child: FutureBuilder(
+                //initialData: [],
+                future: displaycerealitems(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  return GridView.builder(
+                      itemCount: lengthcereal,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (snapshot.data == null) {
+                          return Container(
+                              child: /*Center(
+                                  child: Text(
+                            "No Category selected..!!!",
+                            style: TextStyle(color: Colors.black),
+                          ))*/
+                                  CircularProgressIndicator());
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    elevation: 10, primary: Colors.white),
+                                onPressed: () {
+                                  int iid = snapshot.data[index].itemid;
+                                  String iname = snapshot.data[index].itemname;
+                                  String iprice =
+                                      snapshot.data[index].price.toString();
+                                  String icategory =
+                                      snapshot.data[index].category;
+                                  String imqu = snapshot.data[index].mquantity;
+                                  int ivendorid = snapshot.data[index].vendorid;
+                                  String iimage =
+                                      snapshot.data[index].itemimage;
+
+                                  print(iname);
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Detailspage(
+                                              profile: user,
+                                              itemname: iname,
+                                              itemid: iid,
+                                              price: iprice,
+                                              category: icategory,
+                                              mquantity: imqu,
+                                              vendorid: ivendorid,
+                                              itemimage: iimage)));
+                                },
+                                child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                      child: Image.asset(
+                                        snapshot.data[index].itemimage,
+                                        fit: BoxFit.cover,
+                                        //scale: 0.9,
+                                        //height: 50,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 10, horizontal: 10),
+                                      child: Text(
+                                        snapshot.data[index].itemname,
+                                        style: TextStyle(
+                                            fontSize: 17, color: Colors.black),
+                                      ),
+                                    )
+                                  ],
+                                )),
+                          );
+                        }
+                      });
+                },
+              ),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Text("Spices Section...",
+                  style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.black,
+                      fontFamily: "WorkSans")),
+            ),
+            SizedBox(
+              height: 250,
+              child: FutureBuilder(
+                //initialData: [],
+                future: displayspicesitems(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  return GridView.builder(
+                      itemCount: lengthspices,
+                      scrollDirection: Axis.horizontal,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 1),
+                      itemBuilder: (BuildContext context, int index) {
+                        if (snapshot.data == null) {
+                          return Container(
+                              child: /*Center(
+                                  child: Text(
+                            "No Category selected..!!!",
+                            style: TextStyle(color: Colors.black),
+                          ))*/
+                                  CircularProgressIndicator());
                         } else {
                           return Padding(
                             padding: const EdgeInsets.all(8.0),
