@@ -21,7 +21,11 @@ class _VendorPageState extends State<VendorPage> {
             child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          color: Colors.blueAccent,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage('images/bg1.jpg'), fit: BoxFit.cover),
+          ),
+          //color: Colors.blueAccent,
           child: Center(
             child: Card(
               elevation: 10,
@@ -61,6 +65,23 @@ class _VendorPageState extends State<VendorPage> {
                               horizontal: 30, vertical: 10),
                           child: Text(
                             "Account Info",
+                            style:
+                                TextStyle(fontFamily: "WorkSans", fontSize: 20),
+                          ),
+                        )),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) =>
+                                      AccountPage(profile: profile))));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 30, vertical: 10),
+                          child: Text(
+                            "Orders",
                             style:
                                 TextStyle(fontFamily: "WorkSans", fontSize: 20),
                           ),
