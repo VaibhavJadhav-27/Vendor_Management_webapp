@@ -38,11 +38,11 @@ class _VendorPageState extends State<VendorPage> {
                 width: 700,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     SizedBox(
-                      height: 25,
+                      height: 50,
                     ),
                     Center(
                         child: Text(
@@ -50,7 +50,14 @@ class _VendorPageState extends State<VendorPage> {
                       style: TextStyle(fontFamily: "WorkSans", fontSize: 30),
                     )),
                     SizedBox(
-                      height: 35,
+                      height: 50,
+                    ),
+                    Divider(
+                      thickness: 2,
+                      color: Colors.black,
+                    ),
+                    SizedBox(
+                      height: 70,
                     ),
                     ElevatedButton(
                         onPressed: () {
@@ -62,13 +69,16 @@ class _VendorPageState extends State<VendorPage> {
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
+                              horizontal: 30, vertical: 15),
                           child: Text(
                             "Account Info",
                             style:
                                 TextStyle(fontFamily: "WorkSans", fontSize: 20),
                           ),
                         )),
+                    SizedBox(
+                      height: 40,
+                    ),
                     ElevatedButton(
                         onPressed: () {
                           Navigator.push(
@@ -79,9 +89,29 @@ class _VendorPageState extends State<VendorPage> {
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
+                              horizontal: 56, vertical: 15),
                           child: Text(
                             "Orders",
+                            style:
+                                TextStyle(fontFamily: "WorkSans", fontSize: 20),
+                          ),
+                        )),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: ((context) =>
+                                      AccountPage(profile: profile))));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 15),
+                          child: Text(
+                            "Queries",
                             style:
                                 TextStyle(fontFamily: "WorkSans", fontSize: 20),
                           ),
