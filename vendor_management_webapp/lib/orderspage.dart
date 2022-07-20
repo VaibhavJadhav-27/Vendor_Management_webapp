@@ -1,9 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
 
 import 'package:flutter/material.dart';
 
 class OrdersPage extends StatefulWidget {
-  const OrdersPage({Key? key}) : super(key: key);
+  final String profile;
+  OrdersPage({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<OrdersPage> createState() => _OrdersPageState();

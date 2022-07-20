@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:vendor_management_webapp/accountpage.dart';
+import 'package:vendor_management_webapp/orderspage.dart';
+import 'package:vendor_management_webapp/queriespage.dart';
 
 class VendorPage extends StatefulWidget {
   final String profile;
@@ -85,7 +87,7 @@ class _VendorPageState extends State<VendorPage> {
                               context,
                               MaterialPageRoute(
                                   builder: ((context) =>
-                                      AccountPage(profile: profile))));
+                                      OrdersPage(profile: profile))));
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
@@ -104,8 +106,9 @@ class _VendorPageState extends State<VendorPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) =>
-                                      AccountPage(profile: profile))));
+                                  builder: ((context) => Queriespage(
+                                        profile: profile,
+                                      ))));
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
