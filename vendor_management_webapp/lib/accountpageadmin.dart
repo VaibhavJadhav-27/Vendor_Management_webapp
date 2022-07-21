@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, unused_local_variable, prefer_const_literals_to_create_immutables, unused_element, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, unused_local_variable, prefer_const_literals_to_create_immutables, unused_element, avoid_print, prefer_adjacent_string_concatenation
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -25,12 +25,14 @@ class _AccountPageState1 extends State<AccountPage1> {
 
   void getUserDetails() async {
     //profile = "Akash";
+    print("profile : " + profile);
     var url =
-        Uri.parse('http://localhost:4000/admin/admin/admin1/admin1/$profile');
+        Uri.parse('http://localhost:4000/admin/admin/admin1/admin/adminfname');
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
     };
+    var body = {'adminfname': 'Vaibhav'};
     var response = await http.get(url);
     var resultjson = json.decode(response.body);
     print(resultjson);
@@ -52,7 +54,7 @@ class _AccountPageState1 extends State<AccountPage1> {
   void initState() {
     super.initState();
     print("initstate");
-    getUserDetails();
+    //getUserDetails();
   }
 
   @override
@@ -114,7 +116,7 @@ class _AccountPageState1 extends State<AccountPage1> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            profile + " " + "Jadhav",
+                            "Vaibhav" + " " + "Jadhav",
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           )
@@ -133,7 +135,7 @@ class _AccountPageState1 extends State<AccountPage1> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            contactno,
+                            "797714979",
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           )
@@ -152,7 +154,7 @@ class _AccountPageState1 extends State<AccountPage1> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            email,
+                            "jadhavvaibhav1827@gmail.com",
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           )

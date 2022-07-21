@@ -7,7 +7,7 @@ router7.get('/',async(req,res)=> {
 });
 
 router7.get('/:orderdb', async(req, res) => {
-    mysqlConnection.query('select * from ordersdb;', (error, rows, fields) => {
+    mysqlConnection.query('select orderid,custid,vendorid,details,totalprice,ordertype,isReceived from ordersdb;', (error, rows, fields) => {
         if (!error) {
             res.json(rows);
         } else {

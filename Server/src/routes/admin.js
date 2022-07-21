@@ -30,8 +30,8 @@ router2.get('/:admin/:adminfname/:adminlname', (req, res) => {
     });
 });
 
-router2.get('/admin/admin1/admin1/:adminfname', (req, res) => {
-    var adminfname = req.params.adminfname;
+router2.get('/admin/admin1/admin2/adminfname', (req, res) => {
+    var adminfname = req.body.adminfname;
     //var adminlname = req.params.adminlname;
     console.log(adminfname);
     //console.log(adminlname);

@@ -1,7 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, unused_import
 
 import 'package:flutter/material.dart';
 import 'package:vendor_management_webapp/accountpage.dart';
+import 'package:vendor_management_webapp/accountpageadmin.dart';
+import 'package:vendor_management_webapp/vieworders.dart';
+import 'package:vendor_management_webapp/viewquery.dart';
+import 'package:vendor_management_webapp/viewstaff.dart';
 
 class AdminPage extends StatefulWidget {
   final String profile;
@@ -61,7 +65,7 @@ class _AdminPageState extends State<AdminPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AccountPage(
+                                  builder: (context) => AccountPage1(
                                       profile: profile, type: "admin")));
                         },
                         child: Padding(
@@ -77,7 +81,12 @@ class _AdminPageState extends State<AdminPage> {
                       height: 40,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewOrder()));
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 56, vertical: 15),
@@ -91,7 +100,12 @@ class _AdminPageState extends State<AdminPage> {
                       height: 40,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewQuery()));
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 50, vertical: 15),
@@ -105,7 +119,12 @@ class _AdminPageState extends State<AdminPage> {
                       height: 40,
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewStaff()));
+                        },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 50, vertical: 15),
