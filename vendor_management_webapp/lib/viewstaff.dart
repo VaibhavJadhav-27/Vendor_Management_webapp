@@ -1,4 +1,4 @@
-// ignore_for_file: unused_import, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, avoid_print
+// ignore_for_file: unused_import, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, avoid_print, unused_local_variable
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -43,6 +43,69 @@ class _ViewStaffState extends State<ViewStaff> {
       staffjson;
     });
     return staffjson;
+  }
+
+  void insertstaff() async {
+    var url = Uri.parse('http://localhost:4000/staff/staff');
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Accept': 'application/json',
+    };
+    var body = jsonEncode({
+      'stafffname': fname,
+      'stafflname': lname,
+      'contactno': contact,
+      'emailid': email
+    });
+    var response = await http.post(url, headers: requestHeaders, body: body);
+    if (response.statusCode == 200) {
+      print("Response Status : ${response.statusCode}");
+      print("Response body : " + response.body.toString());
+
+      var url1 = Uri.parse('http://localhost:4000/login/login');
+      Map<String, String> requestHeaders = {
+        'Content-type': 'application/json',
+        'Accept': 'application/json',
+      };
+      var body1 = jsonEncode(
+          {'emailid': email, 'password': pass, 'logintype': "staff"});
+      var response1 =
+          await http.post(url1, headers: requestHeaders, body: body1);
+      if (response1.statusCode == 200) {
+        print("Response Status : ${response.statusCode}");
+        print("Response body : " + response.body.toString());
+        createAlertDialog1(context);
+        staffjson = [];
+        viewstaff();
+      }
+    }
+  }
+
+  createAlertDialog1(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.all(10),
+            backgroundColor: Color.fromRGBO(21, 102, 59, 1),
+            elevation: 20,
+            title: Text(
+              "Staff Record Added...!!",
+              style: TextStyle(fontSize: 25, color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Back",
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ))
+            ],
+          );
+        });
   }
 
   @override
@@ -402,7 +465,7 @@ class _ViewStaffState extends State<ViewStaff> {
                                 primary: Color.fromRGBO(101, 30, 62, 1),
                               ),
                               onPressed: () {
-                                //insertquery();
+                                insertstaff();
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
