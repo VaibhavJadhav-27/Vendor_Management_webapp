@@ -16,14 +16,28 @@ router5.get('/:vendor', (req, res) => {
     });
 });
 
-router5.get('/:vendor/:vendorfname/:vendorlname', (req, res) => {
+router5.get('/:vendor/:vendorfname/:vendorlname', async(req, res) => {
     var vendorfname = req.params.vendorfname;
     var vendorlname = req.params.vendorlname;
-    console.log(vendorfname);
+    console.log("hello "+vendorfname);
     console.log(vendorlname);
-    mysqlConnection.query('select * from vendor where vendorfname = ? and vendorlname = ?;',[vendorfname,vendorlname], (error, rows, fields) => {
+    mysqlConnection.query('select * from vendor where vendorfname = ? and vendorlname=?;',[vendorfname,vendorlname], (error, rows, fields) => {
         if (!error) {
             res.json(rows);
+        } else {
+            console.log(error);
+        }
+    });
+});
+
+router5.get('/vendor/vendor/:vendorfname', (req, res) => {
+    var vendorfname = req.params.vendorfname;
+    console.log("vendorname  : "+vendorfname);
+    //console.log(vendorlname);
+    mysqlConnection.query('select * from vendor where vendorfname = ?',[vendorfname], (error, rows, fields) => {
+        if (!error) {
+            res.json(rows);
+            console.log("yes");
         } else {
             console.log(error);
         }
