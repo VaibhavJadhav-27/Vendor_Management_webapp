@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class AccountPage extends StatefulWidget {
+class AccountPage1 extends StatefulWidget {
   final String profile;
   final String type;
-  AccountPage({Key? key, required this.profile, required this.type})
+  AccountPage1({Key? key, required this.profile, required this.type})
       : super(key: key);
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<AccountPage1> createState() => _AccountPageState1();
 }
 
-class _AccountPageState extends State<AccountPage> {
-  String profile = "Akash";
+class _AccountPageState1 extends State<AccountPage1> {
+  String profile = "";
   String lname = " ";
   String contactno = " ";
   String email = " ";
@@ -26,7 +26,7 @@ class _AccountPageState extends State<AccountPage> {
   void getUserDetails() async {
     //profile = "Akash";
     var url =
-        Uri.parse('http://localhost:4000/customer/customer/cust/$profile');
+        Uri.parse('http://localhost:4000/admin/admin/admin1/admin1/$profile');
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Accept': 'application/json',
@@ -36,11 +36,10 @@ class _AccountPageState extends State<AccountPage> {
     print(resultjson);
     print(resultjson[0]["custid"].toString());
     setState(() {
-      custid = resultjson[0]["custid"].toString();
+      custid = resultjson[0]["adminid"].toString();
       email = resultjson[0]["emailid"];
       contactno = resultjson[0]["conatactno"];
-      lname = resultjson[0]["custlname"];
-      residence = resultjson[0]["residence"];
+      lname = resultjson[0]["adminlname"];
     });
     print(custid);
     print(email);
@@ -115,7 +114,7 @@ class _AccountPageState extends State<AccountPage> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            profile + " " + "Pawar",
+                            profile + " " + "Jadhav",
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           )
@@ -134,7 +133,7 @@ class _AccountPageState extends State<AccountPage> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "9855472160",
+                            contactno,
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           )
@@ -153,7 +152,7 @@ class _AccountPageState extends State<AccountPage> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "pawarakash1618@gmail.com",
+                            email,
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           )
@@ -172,7 +171,7 @@ class _AccountPageState extends State<AccountPage> {
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            "Andheri",
+                            "Jogeshwari East",
                             style: TextStyle(
                                 fontSize: 25, fontWeight: FontWeight.bold),
                           )

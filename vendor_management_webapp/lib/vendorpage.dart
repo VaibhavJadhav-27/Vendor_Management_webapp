@@ -66,8 +66,10 @@ class _VendorPageState extends State<VendorPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: ((context) =>
-                                      AccountPage(profile: profile))));
+                                  builder: ((context) => AccountPage(
+                                        profile: profile,
+                                        type: "vendor",
+                                      ))));
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(

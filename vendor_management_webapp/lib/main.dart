@@ -2,6 +2,7 @@
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:vendor_management_webapp/adminpage.dart';
 import 'package:vendor_management_webapp/homepage.dart';
 import 'package:vendor_management_webapp/loginpage.dart';
 import 'package:vendor_management_webapp/registerpage.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        body: VendorPage(profile: "Vivek"),
+        body: AdminPage(profile: "Vaibhav"),
       ),
       scrollBehavior: MaterialScrollBehavior()
           .copyWith(dragDevices: {PointerDeviceKind.mouse}),

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:vendor_management_webapp/adminpage.dart';
 import 'package:vendor_management_webapp/homepage.dart';
 import 'package:vendor_management_webapp/registerpage.dart';
 import 'package:vendor_management_webapp/vendorpage.dart';
@@ -75,9 +76,7 @@ class _LoginPageState extends State<LoginPage> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => HomePage(
-                        profile: profile,
-                      )));
+                  builder: (context) => AdminPage(profile: profile)));
         }
         if (status == "staff") {
           var url2 = Uri.parse('http://localhost:4000/staff/staff/$emailid');

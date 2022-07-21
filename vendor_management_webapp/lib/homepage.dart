@@ -315,8 +315,8 @@ class _HomePageState extends State<HomePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: ((context) =>
-                                            AccountPage(profile: user))));
+                                        builder: ((context) => AccountPage(
+                                            profile: user, type: "customer"))));
                               },
                               child: Text(
                                 "Account",
