@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:vendor_management_webapp/accountpage.dart';
 import 'package:vendor_management_webapp/accountpageadmin.dart';
+import 'package:vendor_management_webapp/loginpage.dart';
 import 'package:vendor_management_webapp/vieworders.dart';
 import 'package:vendor_management_webapp/viewquery.dart';
 import 'package:vendor_management_webapp/viewstaff.dart';
@@ -130,6 +131,25 @@ class _AdminPageState extends State<AdminPage> {
                               horizontal: 50, vertical: 15),
                           child: Text(
                             "Staff Details",
+                            style:
+                                TextStyle(fontFamily: "WorkSans", fontSize: 20),
+                          ),
+                        )),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginPage()));
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 50, vertical: 15),
+                          child: Text(
+                            "Log out",
                             style:
                                 TextStyle(fontFamily: "WorkSans", fontSize: 20),
                           ),
